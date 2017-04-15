@@ -1,0 +1,7 @@
+class Trip < ApplicationRecord
+  belongs_to :user
+  has_many :requests
+  has_many :comments
+  has_many :legs
+  has_and_belongs_to_many :joiners, class_name: "User", join_table: "trips_users"
+end

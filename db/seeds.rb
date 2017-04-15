@@ -1,7 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+[User, Trip, Leg, Comment].each do |model|
+  ActiveRecord::Base.connection.execute("TRUNCATE #{model.table_name} RESTART IDENTITY CASCADE")
+end
+
+
+adrian = User.create!(username: "adrian", email: "adrian@gmail.com", password: "password", password_confirmation: "password")
+mike = User.create!(username: "mickyginger", email: "mike.hayden@ga.co", password: "password", password_confirmation: "password")
+
+ball = Trip.create!(title: "Vietnam 2017", user: adrian, joiners: [mike])
+chain = Leg.create(trip: ball, date: Date.new(2016, 8, 5), location: "Hanoi", description:"very busy city")

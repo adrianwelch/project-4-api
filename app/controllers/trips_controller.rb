@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :update, :destroy]
+  # skip_before_action :authenticate_user!, only: [:index, :show]
 
   # GET /trips
   def index
@@ -16,6 +17,7 @@ class TripsController < ApplicationController
   # POST /trips
   def create
     @trip = Trip.new(trip_params)
+    @trip.user_id = 1
 
     if @trip.save
       render json: @trip, status: :created, location: @trip

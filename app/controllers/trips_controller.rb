@@ -28,6 +28,7 @@ class TripsController < ApplicationController
 
   # PATCH/PUT /trips/1
   def update
+    # return render json: { errors: ['Unauthorized'] } if @trip.user != current_user
     if @trip.update(trip_params)
       render json: @trip
     else
@@ -37,6 +38,7 @@ class TripsController < ApplicationController
 
   # DELETE /trips/1
   def destroy
+    # return render json: { errors: ['Unauthorized'] } if @trip.user != current_user
     @trip.destroy
   end
 

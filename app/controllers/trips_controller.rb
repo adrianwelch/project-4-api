@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :update, :destroy]
-  # skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   # GET /trips
   def index
@@ -11,13 +11,13 @@ class TripsController < ApplicationController
 
   # GET /trips/1
   def show
-    render json: @trip
+    render json: @trip, include: ["legs","comments.user"]
   end
 
   # POST /trips
   def create
     @trip = Trip.new(trip_params)
-    @trip.user_id = 1
+    @trip.user = current_user
 
     if @trip.save
       render json: @trip, status: :created, location: @trip
@@ -38,7 +38,7 @@ class TripsController < ApplicationController
 
   # DELETE /trips/1
   def destroy
-    # return render json: { errors: ['Unauthorized'] } if @trip.user != current_user
+    return render json: { errors: ['Unauthorized'] } if @trip.user != current_user
     @trip.destroy
   end
 
@@ -50,6 +50,6 @@ class TripsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trip_params
-      params.require(:trip).permit(:user_id, :title)
+      params.require(:trip).permit(:user_id, :title, joiner_ids:[])
     end
 end

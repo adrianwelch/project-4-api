@@ -15,7 +15,8 @@ class LegsController < ApplicationController
 
   # POST /legs
   def create
-    @leg = Leg.new(leg_params)
+    # @leg = Leg.new(leg_params)
+    @leg = Leg.new(Uploader.upload(leg_params))
 
     if @leg.save
       render json: @leg, status: :created, location: @leg
@@ -26,6 +27,7 @@ class LegsController < ApplicationController
 
   # PATCH/PUT /legs/1
   def update
+    return render json: { errors: ["Unauthorized"] } if @leg.trip.user != current_user
     if @leg.update(leg_params)
       render json: @leg
     else
@@ -35,6 +37,7 @@ class LegsController < ApplicationController
 
   # DELETE /legs/1
   def destroy
+    return render json: { errors: ["Unauthorized"] } if @leg.trip.user != current_user
     @leg.destroy
   end
 
@@ -46,6 +49,6 @@ class LegsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def leg_params
-      params.require(:leg).permit(:trip_id, :date, :location, :lat, :lng, :image, :description)
+      params.require(:leg).permit(:trip_id, :date, :location, :lat, :lng, :description, :base64)
     end
 end

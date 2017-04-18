@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
 
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def authenticate_user!
     render json: { errors: ["Unauthorized"] }, status: 401 unless user_signed_in?
@@ -23,6 +23,7 @@ class ApplicationController < ActionController::API
     end
 
     def decoded_token
+      puts "#{token} ***"
       @decoded_token ||= Auth.decode(token) if token
     end
 

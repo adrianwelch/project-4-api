@@ -27,6 +27,8 @@ gem 'jwt'
 gem 'rack-cors'
 gem 'active_model_serializers'
 
+gem 'httparty'
+
 gem 'carrierwave'
 gem 'carrierwave-base64'
 gem 'fog-aws'

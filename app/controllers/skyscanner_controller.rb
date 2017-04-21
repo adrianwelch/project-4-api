@@ -8,7 +8,7 @@ class SkyscannerController < ApplicationController
     today = Date.today
 
     # first = HTTParty.get("#{baseUrl}#{params[:destination]}/#{tomorrow}", {
-    first = HTTParty.get("#{baseUrl}GB/GBP/en-GB/51.5074,0.1278-latlong/#{params["lat"]},#{params["lng"]}-latlong/#{today}/#{tomorrow}", {
+    first = HTTParty.get("#{baseUrl}GB/GBP/en-GB/51.5074,0.1278-latlong/#{params["lat"]},#{params["lng"]}-latlong/#{tomorrow}", {
       query: {
         apiKey: ENV["SKYSCANNER_API_KEY"]
       },

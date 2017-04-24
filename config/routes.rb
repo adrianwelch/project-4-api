@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'skyscanner/flights'
 
   scope :api do
@@ -9,6 +10,6 @@ Rails.application.routes.draw do
     post 'register', to: 'authentications#register'
     post 'login', to: 'authentications#login'
     get '/flights', to: 'skyscanner#flights'
+    post 'oauth/github', to: 'oauth#github'
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

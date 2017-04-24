@@ -38,7 +38,6 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
-    # return render json: { errors: ["Unauthorized"] } if @trip.user != current_user
     @comment.destroy
   end
 

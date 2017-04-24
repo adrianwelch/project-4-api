@@ -28,7 +28,7 @@ class LegsController < ApplicationController
   # PATCH/PUT /legs/1
   def update
     return render json: { errors: ["Unauthorized"] } if @leg.trip.user != current_user
-    if @leg.update(leg_params)
+    if Leg.new(Uploader.upload(leg_params))
       render json: @leg
     else
       render json: @leg.errors, status: :unprocessable_entity
